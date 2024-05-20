@@ -1,14 +1,5 @@
 
 
-/* mediaQueries  for screen */
-/* @media screen and (max-width: 757px) {
-    
-    .wrapper_list_item {
-        display: none;
-    }
-} */
-
-
 
 
 .closeIcon {
@@ -19,14 +10,6 @@
     margin: 0 auto;
 }
 
-/* Style for showing menu responsive */
-/* .wrapper_list_item{
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100vh;
-    width: 280px;
-} */
 .activeMenu{
     display: flex;
     flex-direction: column;
@@ -86,50 +69,89 @@
 
 /* homeStyles.module.css */
 
-.adminDashboard {
-    padding: 20px;
-  }
-  
-  .responsiveTable {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .responsiveTable th,
-  .responsiveTable td {
+/* adminDashboard.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.responsive-table th, .responsive-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.responsive-table th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.responsive-table input, .responsive-table select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+  color: #e59731;
+  text-decoration: none;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .admin-dashboard {
     padding: 10px;
-    text-align: center;
   }
-  
-  .todoInput,
-  .priceInput {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+
+  .responsive-table th, .responsive-table td .total {
+    font-size: 14px;
+    padding: 6px;
   }
-  
-  .cursorPointer {
-    cursor: pointer;
+
+  .responsive-table input, .responsive-table select {
+    padding: 6px;
   }
-  
-  .totalPrice {
-    margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+  .responsive-table th, .responsive-table td, .total {
+    font-size: 12px;
+    padding: 4px;
   }
-  
-  /* Media queries for responsiveness */
-  @media only screen and (max-width: 768px) {
-    .responsiveTable th,
-    .responsiveTable td {
-      font-size: 14px;
-    }
+
+  .responsive-table input, .responsive-table select, .total {
+    padding: 4px;
   }
-  
-  @media only screen and (max-width: 480px) {
-    .todoInput,
-    .priceInput {
-      width: 90%;
-    }
+
+  .cursor-pointer {
+    font-size: 14px;
   }
+}
+
   
 
   /* new one */

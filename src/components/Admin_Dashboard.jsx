@@ -126,7 +126,7 @@ const Admin_Dashboard = ({ children }) => {
             <checkGiver.Provider value={{ checked: value ? value.checked : false }}>
                 {children}
             </checkGiver.Provider>
-            <div>قیمت کل: {totalPrice} هزارتومان</div>
+            <div className='total'>قیمت کل: {totalPrice} هزارتومان</div>
         </section>
     );
 };
