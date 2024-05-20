@@ -1,0 +1,63 @@
+/* AboutUs.css */
+.about-us-container {
+    padding: 20px;
+    color: #333;
+}
+
+.about-us-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-us-header h1 {
+    font-size: 36px;
+    color: #ff5722; /* Orange color for the header */
+}
+
+.about-us-header p {
+    font-size: 18px;
+    color: #777;
+}
+
+.about-us-content {
+    margin-bottom: 40px;
+}
+
+.about-us-content h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #ff5722;
+    margin-bottom: 10px;
+}
+
+.about-us-content p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.about-us-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.about-us-content ul li {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.about-us-team {
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.about-us-team h2 {
+    font-size: 24px;
+    color: #ff5722;
+    margin-bottom: 10px;
+}
+
+.about-us-team p {
+    font-size: 16px;
+}

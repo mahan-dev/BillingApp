@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Adding font to site */
+@font-face {
+    font-family: "YekanBakh_Pro";
+    src: url("./Font/YekanBakh_Pro/YekanBakhNoEn-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: "YekanBakh_Pro" , sans-serif;
+    direction: rtl;
+    font-size: 2rem;
+}

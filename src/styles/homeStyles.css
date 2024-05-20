@@ -1,0 +1,210 @@
+
+
+/* mediaQueries  for screen */
+/* @media screen and (max-width: 757px) {
+    
+    .wrapper_list_item {
+        display: none;
+    }
+} */
+
+
+
+
+.closeIcon {
+    display: flex;
+}
+.homeWrapper{
+    font-size: 1.7rem;
+    margin: 0 auto;
+}
+
+/* Style for showing menu responsive */
+/* .wrapper_list_item{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 280px;
+} */
+.activeMenu{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 280px;
+    align-items: end;
+    background-color: aquamarine;
+}
+
+/* .deactiveMenu{
+    display: flex;
+    
+} */
+
+
+.wrapperContent{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* adding media queries */
+@media screen and (min-width: 757px) {
+    
+    .wrapperIcons {
+        display: none;
+    }
+}
+@media screen and (max-width : 992px) {
+    .wrapperContent{
+        display: grid;
+        grid-template-columns: auto;
+        gap: 30px;
+    }
+
+    .home_picture{
+        order: -1;
+        
+    }
+
+    .home_picture > img{
+        min-width: 200px;
+        max-width: 750px;
+        margin: 0 auto;
+    }
+    
+}
+
+
+
+/* style */
+
+/* homeStyles.module.css */
+
+.adminDashboard {
+    padding: 20px;
+  }
+  
+  .responsiveTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .responsiveTable th,
+  .responsiveTable td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .todoInput,
+  .priceInput {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .cursorPointer {
+    cursor: pointer;
+  }
+  
+  .totalPrice {
+    margin-top: 20px;
+  }
+  
+  /* Media queries for responsiveness */
+  @media only screen and (max-width: 768px) {
+    .responsiveTable th,
+    .responsiveTable td {
+      font-size: 14px;
+    }
+  }
+  
+  @media only screen and (max-width: 480px) {
+    .todoInput,
+    .priceInput {
+      width: 90%;
+    }
+  }
+  
+
+  /* new one */
+
+
+  /* General styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  
+  background-color: #ff9800;
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.title {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* Table styles */
+.table-container {
+  overflow-x: auto;
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.responsive-table th, .responsive-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.responsive-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1028px) {
+  .responsive-table thead {
+    display: none;
+  }
+
+  .responsive-table, .responsive-table tbody, .responsive-table tr, .responsive-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-table tr {
+    margin-bottom: 1rem;
+  }
+
+  .responsive-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .responsive-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: bold;
+    text-align: left;
+  }
+}
