@@ -12,6 +12,6 @@ export default defineConfig({
     hmr: {
       overlay: false,
     },
-    index: '/BillingApp/index.html', // Replace with your actual GitHub repository name
+    index: '/BillingApp/index.html', 
   },
 })
