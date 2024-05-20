@@ -8,7 +8,7 @@ import AboutUs from './components/redirects/AboutUs';
 
 const App = () => {
   return (
-    <div>
+    
     <Router>
 
         <Routes>
@@ -21,7 +21,7 @@ const App = () => {
         </Routes>
       
     </Router>
-    </div>
+   
   );
 };
 
