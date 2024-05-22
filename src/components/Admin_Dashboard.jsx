@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
+import "../styles/homeStyles.css";
+import trashIcon from "../assets/admin_pic/trash.svg";
 
-export const checkGiver = createContext();
 
 const Admin_Dashboard = ({ children }) => {
     const [value, setValue] = useState();
@@ -9,14 +10,17 @@ const Admin_Dashboard = ({ children }) => {
     const [todoList, setTodoList] = useState([]);
     const [price_Number, setPriceNumber] = useState(0);
     const [priceCounter, setPriceCounter] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0); 
+    const [totalPrice, setTotalPrice] = useState(0);
     const [error, setError] = useState("");
     const getUniqueId = uuidv4();
+    const [unitCounter, setUnitCounter] = useState(0);
+
 
     useEffect(() => {
         const storedList = JSON.parse(localStorage.getItem("lists")) || [];
         setTodoList(storedList);
         setTotalPrice(sumItems(storedList));
+        setUnitCounter(unitCounter)
     }, []);
 
     const priceHandlerInput = (e) => {
@@ -25,11 +29,6 @@ const Admin_Dashboard = ({ children }) => {
         setPriceCounter(Number(saveValue));
     };
 
-    const handleCheckBox = (e) => {
-        if (e) {
-            setValue(e.target);
-        }
-    };
 
     const handleChange = (event) => {
         const saveValues = event.target.value;
@@ -44,12 +43,15 @@ const Admin_Dashboard = ({ children }) => {
         const saveValue = document.querySelector('.todo_input').value;
         let priceNumber = Number(price_Number);
         if ((saveValue.trim() !== "" && BillName.trim() !== "") && price_Number !== 0) {
+            const UnitIncreaser = unitCounter + 1;
             const itemObject = {
                 input: saveValue,
                 select: BillName,
                 uId: getUniqueId,
                 Price: priceNumber,
+                unit: UnitIncreaser,
             };
+            setUnitCounter(UnitIncreaser);
 
             savedLocalLists(itemObject);
             setTotalPrice(prevTotal => prevTotal + priceNumber);
@@ -63,6 +65,8 @@ const Admin_Dashboard = ({ children }) => {
         todo.push(item);
         localStorage.setItem("lists", JSON.stringify(todo));
         setTodoList(todo);
+
+       
     };
 
     const handleSelected = (event) => {
@@ -72,9 +76,28 @@ const Admin_Dashboard = ({ children }) => {
         console.log('Selected text:', selectedText);
     };
 
+    const removeItem = (id) => {
+        console.log(id)
+        const removeItem = todoList.filter(item => id !== item.uId)
+        localStorage.setItem("lists", JSON.stringify(removeItem));
+        setTodoList(removeItem)
+        setTotalPrice(sumItems(removeItem))
+    }
+
+
+    const removeItems = () => {
+
+        localStorage.clear();
+        setTodoList([]);
+        setTotalPrice(0);
+        setUnitCounter(0);
+        // savedLocalLists(removeItems)
+
+    }
+
     return (
         <section className="admin-dashboard py-16">
-            {console.log(totalPrice)}
+            {/* {console.log(totalPrice)} */}
             <table className="responsive-table">
                 <thead>
                     <tr>
@@ -82,27 +105,29 @@ const Admin_Dashboard = ({ children }) => {
                         <th>توضیحات</th>
                         <th>قیمت</th>
                         <th>دسته بندی</th>
+                        <th>پاک کردن</th>
                     </tr>
                 </thead>
                 <tbody>
-                  
+
                     {todoList.map((item, index) => (
-                        <tr key={index}>
-                            {console.log(index+1)}
-                            <td>واحد {index + 1}</td>
+                        <tr key={index} >
+                            {/* {console.log(index + 1)} */}
+                            <td>واحد {item.unit}</td>
                             <td> {item.input} </td>
                             <td>{`${item.Price} هزارتومان`}  </td>
                             <td>{item.select}</td>
+                            <td onClick={() => removeItem(item.uId)}>  <img src={trashIcon} className='trashIcon' alt=""  width={25}/>  </td>
                         </tr>
                     ))}
-                    
-                    
+
+
                     <tr>
                         <td>
                             <input className='todo_input text-center' type="text" onChange={handleChange} placeholder='توضیحات' />
                         </td>
                         <td>
-                        <input className='price_Input text-center' type="number" placeholder="قیمت را وارد کنید" onChange={priceHandlerInput} />
+                            <input className='price_Input text-center' type="number" placeholder="قیمت را وارد کنید" onChange={priceHandlerInput} />
 
                         </td>
                         <td>
@@ -116,16 +141,18 @@ const Admin_Dashboard = ({ children }) => {
                         </td>
                     </tr>
                     <tr>
-                        <td colSpan="3" onClick={handleAddedPart} className='cursor-pointer'>+ برای اضافه کردن</td>
+                        <td colSpan="3" onClick={handleAddedPart} className='cursor-pointer'>اضافه کنید</td>
+
                     </tr>
+                        <tr>
+                    <td onClick={removeItems} className='cursor-pointer'>پاک کنید</td>
+
+                        </tr>
                 </tbody>
             </table>
-           
-                        <div>{error}</div>
-                 
-            <checkGiver.Provider value={{ checked: value ? value.checked : false }}>
-                {children}
-            </checkGiver.Provider>
+
+            <div>{error}</div>
+
             <div className='total'>قیمت کل: {totalPrice} هزارتومان</div>
         </section>
     );

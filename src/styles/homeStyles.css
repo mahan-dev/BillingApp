@@ -1,4 +1,7 @@
-
+.trashIcon {
+  cursor: pointer;
+  margin: 0 auto;
+}
 
 
 
@@ -19,7 +22,7 @@
     height: 100vh;
     width: 280px;
     align-items: end;
-    background-color: aquamarine;
+    background-color: #e59731;
 }
 
 /* .deactiveMenu{
@@ -42,6 +45,7 @@
     .wrapperIcons {
         display: none;
     }
+    
 }
 @media screen and (max-width : 992px) {
     .wrapperContent{
@@ -60,6 +64,7 @@
         max-width: 750px;
         margin: 0 auto;
     }
+    
     
 }
 
@@ -122,35 +127,9 @@ body {
 }
 
 /* Responsive Styles */
-@media (max-width: 768px) {
-  .admin-dashboard {
-    padding: 10px;
-  }
 
-  .responsive-table th, .responsive-table td .total {
-    font-size: 14px;
-    padding: 6px;
-  }
 
-  .responsive-table input, .responsive-table select {
-    padding: 6px;
-  }
-}
 
-@media (max-width: 480px) {
-  .responsive-table th, .responsive-table td, .total {
-    font-size: 12px;
-    padding: 4px;
-  }
-
-  .responsive-table input, .responsive-table select, .total {
-    padding: 4px;
-  }
-
-  .cursor-pointer {
-    font-size: 14px;
-  }
-}
 
   
 
@@ -213,6 +192,10 @@ body {
   .responsive-table tr {
     margin-bottom: 1rem;
   }
+  .trashIcon{
+    width: 25px;
+    margin: 0;
+  }
 
   .responsive-table td {
     text-align: right;
@@ -230,3 +213,44 @@ body {
     text-align: left;
   }
 }
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 10px;
+  }
+
+  .responsive-table th, .responsive-table td .total {
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .responsive-table input, .responsive-table select {
+    padding: 6px;
+  }
+  .trashIcon{
+    width: 25px;
+    margin: 0;
+  }
+}
+@media (max-width: 480px) {
+  .responsive-table th, .responsive-table td, .total {
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  .responsive-table input, .responsive-table select, .total {
+    padding: 4px;
+  }
+
+  .cursor-pointer {
+    font-size: 14px;
+  }
+  .trashIcon{
+    width: 15px;
+    margin: 0;
+  }
+}
+
+
+
+
+

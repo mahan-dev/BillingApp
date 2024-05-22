@@ -38,7 +38,7 @@ const FormPage = () => {
             <tbody>
               {grabData.map((item, index) => (
                 <tr key={index}>
-                  <td>واحد {index + 1}</td>
+                  <td>واحد {item.unit}</td>
                   <td>{item.input}</td>
                   <td>{item.select}</td>
                   <td>{item.Price} هزارتومان</td>

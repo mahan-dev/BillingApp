@@ -50,7 +50,7 @@ const HomePage = () => {
             <header className="header">
                 <nav className="wrapper_list_item">
                     <Ul open={headerIcon} className={`${headerIcon ? homeStylesModule.deactiveMenu : homeStylesModule.activeMenu} `}>
-                        <Link className='px-3' to="/Login"> ورود (ادمین) </Link>
+                        <Link className='px-3' to="/Login"> ورود </Link>
                         <Link className='px-3' to="/aboutUs">درباره ما</Link>
                     </Ul>
                     <section className="wrapp "></section>
