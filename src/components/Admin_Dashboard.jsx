@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from "uuid";
+import { stringify, v4 as uuidv4 } from "uuid";
 import "../styles/homeStyles.css";
 import trashIcon from "../assets/admin_pic/trash.svg";
 
@@ -11,9 +11,10 @@ const Admin_Dashboard = ({ children }) => {
     const [priceCounter, setPriceCounter] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
     const [error, setError] = useState("");
-    const [unitCounter, setUnitCounter] = useState(0);
+    const [unitCounter, setUnitCounter] = useState(1);
     const [editingIndex, setEditingIndex] = useState(-1);
     const [editingItem, setEditingItem] = useState({});
+    // const [UnitIncreaser, setUnitIncreaser] = useState(nul);
     const getUniqueId = uuidv4();
 
     useEffect(() => {
@@ -29,7 +30,11 @@ const Admin_Dashboard = ({ children }) => {
         setPriceNumber(Number(saveValue));
         setPriceCounter(Number(saveValue));
     };
-
+    let unitcounter = 0;
+    const unitCounterF = () =>{
+        unitcounter = todoList.length
+    }
+    unitCounterF();
     const handleChange = (event) => {
         const saveValues = event.target.value;
         console.log(saveValues);
@@ -43,6 +48,7 @@ const Admin_Dashboard = ({ children }) => {
         const saveValue = document.querySelector('.todo_input').value;
         let priceNumber = Number(price_Number);
         if ((saveValue.trim() !== "" && BillName.trim() !== "") && price_Number !== 0) {
+            
             const UnitIncreaser = Number(unitCounter + 1);
             const itemObject = {
                 input: saveValue,
@@ -52,6 +58,7 @@ const Admin_Dashboard = ({ children }) => {
                 unit: UnitIncreaser,
             };
             setUnitCounter(UnitIncreaser);
+            localStorage.setItem("unitCounter", JSON.stringify(UnitIncreaser))
 
             savedLocalLists(itemObject);
             setTotalPrice(prevTotal => prevTotal + priceNumber);
@@ -78,8 +85,19 @@ const Admin_Dashboard = ({ children }) => {
         console.log(id);
         const removeItem = todoList.filter(item => id !== item.uId);
         localStorage.setItem("lists", JSON.stringify(removeItem));
+        
         setTodoList(removeItem);
         setTotalPrice(sumItems(removeItem));
+        if (removeItem(id) && localStorage.getItem("lists") === "" || localStorage.getItem("lists") === null  || localStorage.getItem("unitCounter") !== null) {
+            localStorage.clear();
+            setTodoList([]);
+            setTotalPrice(0);
+            setUnitCounter(0);
+
+        }
+        // let number  = JSON.parse(localStorage.getItem("unitCounter"))
+        // localStorage.setItem("unit_Decrease_Count", JSON.stringify(number - 1) )
+        // setUnitCounter(unitCounter); 
     };
 
     const removeItems = () => {
@@ -169,6 +187,7 @@ const Admin_Dashboard = ({ children }) => {
                                 </>
                             ) : (
                                 <>
+                                
                                     <td>واحد {item.unit}</td>
                                     <td>{item.input}</td>
                                     <td>{`${item.Price} هزارتومان`}</td>
@@ -210,6 +229,7 @@ const Admin_Dashboard = ({ children }) => {
             <div className='errorMessage'>{error}</div>
 
             <div className='total'>قیمت کل: {totalPrice} هزارتومان</div>
+            <div className='total'>تعداد واحد : {unitcounter}</div>
         </section>
     );
 };
