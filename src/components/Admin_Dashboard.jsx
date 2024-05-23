@@ -1,8 +1,7 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
 import "../styles/homeStyles.css";
 import trashIcon from "../assets/admin_pic/trash.svg";
-
 
 const Admin_Dashboard = ({ children }) => {
     const [value, setValue] = useState();
@@ -12,15 +11,17 @@ const Admin_Dashboard = ({ children }) => {
     const [priceCounter, setPriceCounter] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
     const [error, setError] = useState("");
-    const getUniqueId = uuidv4();
     const [unitCounter, setUnitCounter] = useState(0);
-
+    const [editingIndex, setEditingIndex] = useState(-1);
+    const [editingItem, setEditingItem] = useState({});
+    const getUniqueId = uuidv4();
 
     useEffect(() => {
         const storedList = JSON.parse(localStorage.getItem("lists")) || [];
+        const storedUnitCounter = localStorage.getItem("unitCounter") || 0;
         setTodoList(storedList);
         setTotalPrice(sumItems(storedList));
-        setUnitCounter(unitCounter)
+        setUnitCounter(Number(storedUnitCounter));
     }, []);
 
     const priceHandlerInput = (e) => {
@@ -28,7 +29,6 @@ const Admin_Dashboard = ({ children }) => {
         setPriceNumber(Number(saveValue));
         setPriceCounter(Number(saveValue));
     };
-
 
     const handleChange = (event) => {
         const saveValues = event.target.value;
@@ -43,7 +43,7 @@ const Admin_Dashboard = ({ children }) => {
         const saveValue = document.querySelector('.todo_input').value;
         let priceNumber = Number(price_Number);
         if ((saveValue.trim() !== "" && BillName.trim() !== "") && price_Number !== 0) {
-            const UnitIncreaser = unitCounter + 1;
+            const UnitIncreaser = Number(unitCounter + 1);
             const itemObject = {
                 input: saveValue,
                 select: BillName,
@@ -56,7 +56,7 @@ const Admin_Dashboard = ({ children }) => {
             savedLocalLists(itemObject);
             setTotalPrice(prevTotal => prevTotal + priceNumber);
         } else {
-            setError("توضیحات یا قیمت را خالی نگذارید !")
+            setError("توضیحات یا قیمت را خالی نگذارید !");
         }
     };
 
@@ -65,8 +65,6 @@ const Admin_Dashboard = ({ children }) => {
         todo.push(item);
         localStorage.setItem("lists", JSON.stringify(todo));
         setTodoList(todo);
-
-       
     };
 
     const handleSelected = (event) => {
@@ -77,27 +75,51 @@ const Admin_Dashboard = ({ children }) => {
     };
 
     const removeItem = (id) => {
-        console.log(id)
-        const removeItem = todoList.filter(item => id !== item.uId)
+        console.log(id);
+        const removeItem = todoList.filter(item => id !== item.uId);
         localStorage.setItem("lists", JSON.stringify(removeItem));
-        setTodoList(removeItem)
-        setTotalPrice(sumItems(removeItem))
-    }
-
+        setTodoList(removeItem);
+        setTotalPrice(sumItems(removeItem));
+    };
 
     const removeItems = () => {
-
         localStorage.clear();
         setTodoList([]);
         setTotalPrice(0);
         setUnitCounter(0);
-        // savedLocalLists(removeItems)
+    };
 
-    }
+    const startEditing = (index) => {
+        console.log(index)
+        setEditingIndex(index);
+        setEditingItem(todoList[index]);
+        console.log(todoList[index])
+    };
+
+    const handleEditChange = (e, field) => {
+        if (isNaN(e.target.value)) {
+            setEditingItem({ ...editingItem, [field]: e.target.value });    
+        } else if(Number(e.target.value)){
+
+            setEditingItem({ ...editingItem, [field]: Number(e.target.value) });
+        }
+        console.log(e.target.value)
+        console.log(editingItem)
+    };
+
+    const saveEdit = () => {
+        const updatedList = [...todoList];
+        console.log(updatedList)
+        updatedList[editingIndex] = editingItem;
+        localStorage.setItem("lists", JSON.stringify(updatedList));
+        setTodoList(updatedList);
+        setEditingIndex(-1);
+        setEditingItem({});
+        setTotalPrice(sumItems(updatedList));
+    };
 
     return (
         <section className="admin-dashboard py-16">
-            {/* {console.log(totalPrice)} */}
             <table className="responsive-table">
                 <thead>
                     <tr>
@@ -105,53 +127,87 @@ const Admin_Dashboard = ({ children }) => {
                         <th>توضیحات</th>
                         <th>قیمت</th>
                         <th>دسته بندی</th>
+                        <th>ویرایش</th>
                         <th>پاک کردن</th>
                     </tr>
                 </thead>
                 <tbody>
-
                     {todoList.map((item, index) => (
-                        <tr key={index} >
-                            {/* {console.log(index + 1)} */}
-                            <td>واحد {item.unit}</td>
-                            <td> {item.input} </td>
-                            <td>{`${item.Price} هزارتومان`}  </td>
-                            <td>{item.select}</td>
-                            <td onClick={() => removeItem(item.uId)}>  <img src={trashIcon} className='trashIcon' alt=""  width={25}/>  </td>
+                        <tr key={index}>
+                            {editingIndex === index ? (
+                                <>
+                                    <td>واحد {item.unit}</td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            value={editingItem.input}
+                                            onChange={(e) => handleEditChange(e, 'input')}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="number"
+                                            value={editingItem.Price}
+                                            onChange={(e) => handleEditChange(e, 'Price')}
+                                        />
+                                    </td>
+                                    <td>
+                                        <select
+                                            value={editingItem.select}
+                                            onChange={(e) => handleEditChange(e, 'select')}
+                                        >
+                                            <option value="آب">آب</option>
+                                            <option value="برق">برق</option>
+                                            <option value="گاز">گاز</option>
+                                            <option value="سایر">سایر</option>
+                                        </select>
+                                    </td>
+                                    <td onClick={saveEdit}>save</td>
+                                    <td onClick={() => removeItem(item.uId)}>
+                                        <img src={trashIcon} className='trashIcon' alt="" width={25} />
+                                    </td>
+                                </>
+                            ) : (
+                                <>
+                                    <td>واحد {item.unit}</td>
+                                    <td>{item.input}</td>
+                                    <td>{`${item.Price} هزارتومان`}</td>
+                                    <td>{item.select}</td>
+                                    <td onClick={() => startEditing(index)}>edit</td>
+                                    <td onClick={() => removeItem(item.uId)}>
+                                        <img src={trashIcon} className='trashIcon' alt="" width={25} />
+                                    </td>
+                                </>
+                            )}
                         </tr>
                     ))}
-
-
                     <tr>
                         <td>
                             <input className='todo_input text-center' type="text" onChange={handleChange} placeholder='توضیحات' />
                         </td>
                         <td>
                             <input className='price_Input text-center' type="number" placeholder="قیمت را وارد کنید" onChange={priceHandlerInput} />
-
                         </td>
                         <td>
                             <label htmlFor="browser">انتخاب کنید :</label>
                             <select style={{ cursor: "pointer" }} id="browser" name="browser" onChange={handleSelected}>
                                 <option value="آب">آب</option>
                                 <option value="برق">برق</option>
-                                <option value="Safari">گاز</option>
-                                <option value="Edge">سایر</option>
+                                <option value="گاز">گاز</option>
+                                <option value="سایر">سایر</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td colSpan="3" onClick={handleAddedPart} className='cursor-pointer'>اضافه کنید</td>
-
                     </tr>
-                        <tr>
-                    <td onClick={removeItems} className='cursor-pointer'>پاک کنید</td>
-
-                        </tr>
+                    <tr>
+                        <td onClick={removeItems} className='cursor-pointer'>پاک کنید</td>
+                    </tr>
                 </tbody>
             </table>
 
-            <div>{error}</div>
+            <div className='errorMessage'>{error}</div>
 
             <div className='total'>قیمت کل: {totalPrice} هزارتومان</div>
         </section>

@@ -4,8 +4,12 @@ import styled from 'styled-components';
 import menuIcon from "../assets/header_menu/bars.svg";
 import CloseIcon from "../assets/header_menu/xmark.svg";
 import BillingImg from "../assets/home_billing_img/BillingPic.jpg";
+// import css styles 
 import "../styles/homeStyles.css";
 import homeStylesModule from "../styles/home.module.css";
+// import footer homePage
+import Footer from './Footer';
+
 
 const Ul = styled.ul`
   display: flex;
@@ -65,7 +69,10 @@ const HomePage = () => {
 
             <section className="wrapperContent p-8">
                 <section className='home_intro'>
+                    <p className='intro_content'>
                     با قبضتو، مدیریت پرداخت قبوض ساختمان شما آسان‌تر از همیشه خواهد بود. تنها با یک کلیک، قبض‌های مربوط به هزینه‌های مختلف ساختمان را به مستاجرین خود نمایش دهید. این سامانه به شما امکان می‌دهد تا تمامی قبوض را به صورت آنلاین و بدون دردسر مدیریت کنید. با استفاده از قبضتو، پرداخت‌ها به موقع انجام می‌شود و شفافیت مالی بیشتری خواهید داشت. همچنین، قابلیت ارسال یادآوری‌های خودکار برای مستاجرین نیز فراهم شده است. از هر نقطه و در هر زمان، قبض‌های ساختمان خود را به راحتی کنترل کنید. با قبضتو، نگرانی‌های پرداخت قبوض را فراموش کنید و وقت خود را به امور مهم‌تر اختصاص دهید.
+                    </p>
+                    
                 </section>
                 <section className='home_picture w-full'>
                     <img src={BillingImg} alt="Billing" width={"100%"} />
@@ -73,7 +80,7 @@ const HomePage = () => {
               
             </section>
 
-            <footer></footer>
+            <Footer />
         </section>
     );
 };

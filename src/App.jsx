@@ -8,20 +8,20 @@ import AboutUs from './components/redirects/AboutUs';
 
 const App = () => {
   return (
-    
+
     <Router>
 
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/Login' element={<Login_Admin_Guest/>}></Route>
-          <Route  path='/LogInAdmin' element={<Admin_Dashboard />}/>
-          <Route  path='/LogInGuest' element={<FormPage />}/>
-          <Route  path='/AboutUs' element={<AboutUs />}/>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/Login' element={<Login_Admin_Guest />}></Route>
+        <Route path='/LogInAdmin' element={<Admin_Dashboard />} />
+        <Route path='/LogInGuest' element={<FormPage />} />
+        <Route path='/AboutUs' element={<AboutUs />} />
 
-        </Routes>
-      
+      </Routes>
+
     </Router>
-   
+
   );
 };
 
