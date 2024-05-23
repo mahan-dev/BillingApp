@@ -275,6 +275,10 @@ body {
     width: 15px;
     margin: 0;
   }
+
+  .intro_content{
+    font-size: 1rem;
+  }
 }
 
 
