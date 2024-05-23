@@ -184,15 +184,22 @@ const Admin_Dashboard = ({ children }) => {
                                     <td onClick={() => removeItem(item.uId)}>
                                         <img src={trashIcon} className='trashIcon' alt="" width={25} />
                                     </td>
+                                    <td></td>
                                 </>
                             ) : (
                                 <>
                                 
-                                    <td>واحد {item.unit}</td>
-                                    <td>{item.input}</td>
-                                    <td>{`${item.Price} هزارتومان`}</td>
-                                    <td>{item.select}</td>
-                                    <td onClick={() => startEditing(index)}>edit</td>
+                                  
+                                        
+                                     <td>
+                                     <label className='unitNumber' htmlFor="">واحد : </label> واحد {item.unit}  
+                                        </td> 
+                                        
+                                     
+                                    <td> <label className='descriptionInput' htmlFor="">توضیحات : </label> {item.input}</td>
+                                    <td> <label className='priceInput' htmlFor=""></label> {`${item.Price} هزارتومان`}</td>
+                                    <td> <label className='category' htmlFor="">دسته بندی : </label>{item.select}</td>
+                                    <td className='cursor-pointer' onClick={() => startEditing(index)}>ویرایش</td>
                                     <td onClick={() => removeItem(item.uId)}>
                                         <img src={trashIcon} className='trashIcon' alt="" width={25} />
                                     </td>
@@ -218,10 +225,10 @@ const Admin_Dashboard = ({ children }) => {
                         </td>
                     </tr>
                     <tr>
-                        <td colSpan="3" onClick={handleAddedPart} className='cursor-pointer'>اضافه کنید</td>
+                        <td colSpan="3" onClick={handleAddedPart} className='editPart'>اضافه کنید</td>
                     </tr>
                     <tr>
-                        <td onClick={removeItems} className='cursor-pointer'>پاک کنید</td>
+                        <td onClick={removeItems} className='editPart'>پاک کنید</td>
                     </tr>
                 </tbody>
             </table>

@@ -118,7 +118,7 @@ body {
   box-sizing: border-box;
 }
 
-.cursor-pointer {
+.editPart {
   cursor: pointer;
   color: #e59731;
   text-decoration: none;
@@ -196,6 +196,9 @@ body {
 .errorMessage{
 
 }
+.unitNumber, .descriptionInput, .priceInput, .category{
+  display:none;
+}
 
 /* @media queries part !!!!!!!!!!!!!!! */
 
@@ -236,8 +239,15 @@ body {
   .intro_content{
     font-size: 1.4rem;
   }
+
+  .unitNumber, .descriptionInput, .priceInput, .category{
+    display: contents;
+  }
 }
 @media (max-width: 768px) {
+  .unitNumber, .descriptionInput, .priceInput, .category{
+    display: contents;
+  }
   .admin-dashboard {
     padding: 10px;
   }
@@ -259,6 +269,9 @@ body {
   }
 }
 @media (max-width: 480px) {
+  .unitNumber, .descriptionInput, .priceInput, .category{
+    display: contents;
+  }
   .responsive-table th, .responsive-table td, .total, .errorMessage {
     font-size: 12px;
     padding: 4px;
@@ -268,7 +281,7 @@ body {
     padding: 4px;
   }
 
-  .cursor-pointer {
+  .editPart {
     font-size: 14px;
   }
   .trashIcon{
