@@ -184,7 +184,7 @@ const Admin_Dashboard = ({ children }) => {
                                     <td onClick={() => removeItem(item.uId)}>
                                         <img src={trashIcon} className='trashIcon' alt="" width={25} />
                                     </td>
-                                    <td></td>
+                                    
                                 </>
                             ) : (
                                 <>
