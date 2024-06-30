@@ -175,6 +175,12 @@ const Admin_Dashboard = ({ children }) => {
         setTotalPrice(sumItems(updatedList));
     };
 
+    const validateInput = (event)=>{
+        const input = event.target;
+      // Remove any non-numeric characters
+      input.value = input.value.replace(/[^0-9]/g, '');
+    }
+
     return (
         <section className="admin-dashboard py-16">
             <table className="responsive-table">
@@ -251,7 +257,7 @@ const Admin_Dashboard = ({ children }) => {
                             <input className='todo_input text-center outline-none' type="text" onChange={handleChange} placeholder='توضیحات' />
                         </td>
                         <td>
-                            <input className='price_Input text-center outline-none' type="number" placeholder="قیمت را وارد کنید" onChange={priceHandlerInput} />
+                            <input className='price_Input text-center outline-none' onInput={validateInput} type="number" placeholder="قیمت را وارد کنید" onChange={priceHandlerInput} />
                         </td>
                         <td className='table_data_options'>
                             <label htmlFor="browser">انتخاب کنید :</label>
