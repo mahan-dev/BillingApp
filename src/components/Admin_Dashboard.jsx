@@ -2,9 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { stringify, v4 as uuidv4 } from "uuid";
 import "../styles/homeStyles.css";
 import trashIcon from "../assets/admin_pic/trash.svg";
+// importing calender 
+import DateObject from "react-date-object";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+
+// import { Calendar } from "react-multi-date-picker";
+// import persian from "react-date-object/calendars/persian";
+// import persian_fa from "react-date-object/locales/persian_fa";
 
 const Admin_Dashboard = ({ children }) => {
+    const [date, setDate] = useState();
+
+
     const [value, setValue] = useState();
+
     const [BillName, setBillName] = useState("آب");
     const [todoList, setTodoList] = useState([]);
     const [price_Number, setPriceNumber] = useState(0);
@@ -20,6 +33,8 @@ const Admin_Dashboard = ({ children }) => {
     useEffect(() => {
         const storedList = JSON.parse(localStorage.getItem("lists")) || [];
         const storedUnitCounter = localStorage.getItem("unitCounter") || 0;
+        const dateObject = JSON.parse(localStorage.getItem("currentDate"));
+        setDate(dateObject)
         setTodoList(storedList);
         setTotalPrice(sumItems(storedList));
         setUnitCounter(Number(storedUnitCounter));
@@ -44,9 +59,20 @@ const Admin_Dashboard = ({ children }) => {
         return items.reduce((total, item) => total + item.Price, 0);
     };
 
+    const persianToLatin = (persianNumber) => {
+        const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+        const latinDigits = "0123456789";
+        return persianNumber.replace(/[۰-۹]/g, (w) => latinDigits[persianDigits.indexOf(w)]);
+      };
+    
+
     const handleAddedPart = () => {
         const saveValue = document.querySelector('.todo_input').value;
         let priceNumber = Number(price_Number);
+        const date = new DateObject({ calendar: persian, locale: persian_fa , digits: "latina"});
+            const formattedDate = date.format();
+            let convertor  = persianToLatin(formattedDate);
+            console.log(convertor)
         if ((saveValue.trim() !== "" && BillName.trim() !== "") && price_Number !== 0) {
             
             const UnitIncreaser = Number(unitCounter + 1);
@@ -56,12 +82,21 @@ const Admin_Dashboard = ({ children }) => {
                 uId: getUniqueId,
                 Price: priceNumber,
                 unit: UnitIncreaser,
+                dateOfBill: convertor,
             };
             setUnitCounter(UnitIncreaser);
             localStorage.setItem("unitCounter", JSON.stringify(UnitIncreaser))
 
             savedLocalLists(itemObject);
             setTotalPrice(prevTotal => prevTotal + priceNumber);
+
+            
+            setDate(convertor);
+            localStorage.setItem("currentDate", JSON.stringify(convertor));
+            // localStorage.setItem("currentDate", JSON.stringify(formattedDate));
+            console.log(`Current Persian Date: ${formattedDate}`);
+
+
         } else {
             setError("توضیحات یا قیمت را خالی نگذارید !");
         }
@@ -121,10 +156,14 @@ const Admin_Dashboard = ({ children }) => {
 
             setEditingItem({ ...editingItem, [field]: Number(e.target.value) });
         }
-        console.log(e.target.value)
-        console.log(editingItem)
+        // console.log(e.target.value)
+        // console.log(editingItem)
     };
 
+    const Onclick = (event)=>{
+        console.log(event.target.value)
+    }
+   
     const saveEdit = () => {
         const updatedList = [...todoList];
         console.log(updatedList)
@@ -147,6 +186,7 @@ const Admin_Dashboard = ({ children }) => {
                         <th>دسته بندی</th>
                         <th>ویرایش</th>
                         <th>پاک کردن</th>
+                        <th>تاریخ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -154,7 +194,7 @@ const Admin_Dashboard = ({ children }) => {
                         <tr key={index}>
                             {editingIndex === index ? (
                                 <>
-                                    <td>واحد {item.unit}</td>
+                                    <td className='text-w'>واحد {item.unit}</td>
                                     <td>
                                         <input
                                             type="text"
@@ -162,7 +202,7 @@ const Admin_Dashboard = ({ children }) => {
                                             onChange={(e) => handleEditChange(e, 'input')}
                                         />
                                     </td>
-                                    <td>
+                                    <td className=''>
                                         <input
                                             type="number"
                                             value={editingItem.Price}
@@ -180,7 +220,7 @@ const Admin_Dashboard = ({ children }) => {
                                             <option value="سایر">سایر</option>
                                         </select>
                                     </td>
-                                    <td onClick={saveEdit}>save</td>
+                                    <td onClick={saveEdit} className='cursor-pointer' >save</td>
                                     <td onClick={() => removeItem(item.uId)}>
                                         <img src={trashIcon} className='trashIcon' alt="" width={25} />
                                     </td>
@@ -191,30 +231,29 @@ const Admin_Dashboard = ({ children }) => {
                                 
                                   
                                         
-                                     <td>
-                                     <label className='unitNumber' htmlFor="">واحد : </label> واحد {item.unit}  
-                                        </td> 
+                                     <td> <label className='unitNumber' htmlFor="">واحد : </label> واحد {item.unit} </td> 
                                         
                                      
-                                    <td> <label className='descriptionInput' htmlFor="">توضیحات : </label> {item.input}</td>
-                                    <td> <label className='priceInput' htmlFor=""></label> {`${item.Price} هزارتومان`}</td>
-                                    <td> <label className='category' htmlFor="">دسته بندی : </label>{item.select}</td>
+                                    <td> <label className='descriptionInput  outline_fixer' htmlFor="">توضیحات : </label> {item.input}</td>
+                                    <td> <label className='priceInput outline_fixer' htmlFor=""></label> {`${item.Price} هزارتومان`}</td>
+                                    <td> <label className='category outline_fixer' htmlFor="">دسته بندی : </label>{item.select}</td>
                                     <td className='cursor-pointer' onClick={() => startEditing(index)}>ویرایش</td>
                                     <td onClick={() => removeItem(item.uId)}>
                                         <img src={trashIcon} className='trashIcon' alt="" width={25} />
                                     </td>
+                                    <td> <label htmlFor='' className='date' >تاریخ : </label> {date} </td>
                                 </>
                             )}
                         </tr>
                     ))}
                     <tr>
                         <td>
-                            <input className='todo_input text-center' type="text" onChange={handleChange} placeholder='توضیحات' />
+                            <input className='todo_input text-center outline-none' type="text" onChange={handleChange} placeholder='توضیحات' />
                         </td>
                         <td>
-                            <input className='price_Input text-center' type="number" placeholder="قیمت را وارد کنید" onChange={priceHandlerInput} />
+                            <input className='price_Input text-center outline-none' type="number" placeholder="قیمت را وارد کنید" onChange={priceHandlerInput} />
                         </td>
-                        <td>
+                        <td className='table_data_options'>
                             <label htmlFor="browser">انتخاب کنید :</label>
                             <select style={{ cursor: "pointer" }} id="browser" name="browser" onChange={handleSelected}>
                                 <option value="آب">آب</option>

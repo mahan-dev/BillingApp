@@ -196,8 +196,16 @@ body {
 .errorMessage{
 
 }
-.unitNumber, .descriptionInput, .priceInput, .category{
-  display:none;
+.unitNumber, .descriptionInput, .priceInput, .category , .date{
+  display:none; 
+}
+
+.table_data_options select > option {
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+}
+
+.outline_fixer{
+  outline: none;
 }
 
 /* @media queries part !!!!!!!!!!!!!!! */
@@ -214,7 +222,7 @@ body {
 
   .responsive-table tr {
     margin-bottom: 1rem;
-  }
+  } 
   .trashIcon{
     width: 25px;
     margin: 0;
@@ -223,9 +231,9 @@ body {
   .responsive-table td {
     text-align: right;
     padding-left: 50%;
-    position: relative;
+    /* position: relative; */
   }
-
+/* 
   .responsive-table td::before {
     content: attr(data-label);
     position: absolute;
@@ -234,13 +242,13 @@ body {
     padding-left: 15px;
     font-weight: bold;
     text-align: left;
-  }
+  } */
 
   .intro_content{
     font-size: 1.4rem;
   }
 
-  .unitNumber, .descriptionInput, .priceInput, .category{
+  .unitNumber, .descriptionInput, .priceInput, .category, .date{
     display: contents;
   }
 }
@@ -273,7 +281,7 @@ body {
     display: contents;
   }
   .responsive-table th, .responsive-table td, .total, .errorMessage {
-    font-size: 12px;
+    font-size: 1.4rem;
     padding: 4px;
   }
 
