@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { stringify, v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import "../styles/homeStyles.css";
 import trashIcon from "../assets/admin_pic/trash.svg";
+
 // importing calender 
 import DateObject from "react-date-object";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
-// import { Calendar } from "react-multi-date-picker";
-// import persian from "react-date-object/calendars/persian";
-// import persian_fa from "react-date-object/locales/persian_fa";
 
 const Admin_Dashboard = ({ children }) => {
     const [date, setDate] = useState();
@@ -247,7 +245,7 @@ const Admin_Dashboard = ({ children }) => {
                                     <td onClick={() => removeItem(item.uId)}>
                                         <img src={trashIcon} className='trashIcon' alt="" width={25} />
                                     </td>
-                                    <td> <label htmlFor='' className='date' >تاریخ : </label> {date} </td>
+                                    <td> <label htmlFor='' className='date' >تاریخ : </label> {item.dateOfBill} </td>
                                 </>
                             )}
                         </tr>

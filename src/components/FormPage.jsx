@@ -9,12 +9,10 @@ const FormPage = () => {
   useEffect(() => {
     const grabber = localStorage.getItem("lists");
     if (grabber) {
-      try {
-        const setLocalLists = JSON.parse(grabber);
-        setGrabData(setLocalLists);
-      } catch (error) {
-        console.log("Error parsing local storage data: ", error);
-      }
+
+      const setLocalLists = JSON.parse(grabber);
+      setGrabData(setLocalLists);
+
     }
   }, []);
 
@@ -34,6 +32,7 @@ const FormPage = () => {
                 <th>قبض</th>
                 <th>قیمت</th>
                 <th>شناسه</th>
+                <th>تاریخ</th>
               </tr>
             </thead>
             <tbody>
@@ -44,6 +43,7 @@ const FormPage = () => {
                   <td>{item.select}</td>
                   <td>{item.Price} هزارتومان</td>
                   <td>{item.uId}</td>
+                  <td>{item.dateOfBill}</td>
                 </tr>
               ))}
             </tbody>
